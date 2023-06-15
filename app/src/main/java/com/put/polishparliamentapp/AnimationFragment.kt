@@ -26,7 +26,7 @@ class AnimationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.animation_fragmet, container, false)
+        val view = inflater.inflate(R.layout.fragment_animation, container, false)
         mWhiteRect = view.findViewById(R.id.white)
         mRedRect = view.findViewById(R.id.red)
 
@@ -53,8 +53,8 @@ class AnimationFragment : Fragment() {
         val yEndRed = yStart / 2
         val yEndWhite = yEndRed - mWhiteRect.height
         Log.i("y", yStart.toString())
-        val whiteAnimator = ObjectAnimator.ofFloat(mWhiteRect, "y", yStart, yEndWhite).setDuration(1000)
-        val redAnimator = ObjectAnimator.ofFloat(mRedRect, "y", yStart, yEndRed).setDuration(1000)
+        val whiteAnimator = ObjectAnimator.ofFloat(mWhiteRect, "y", yStart, yEndWhite).setDuration(3000)
+        val redAnimator = ObjectAnimator.ofFloat(mRedRect, "y", yStart, yEndRed).setDuration(3000)
 
         whiteAnimator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationEnd(p0: Animator) {
