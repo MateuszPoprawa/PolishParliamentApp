@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PolishParliamentApp</string>
+    <string name="white_rectangle">White rectangle</string>
+    <string name="red_rectangle">Red rectangle</string>
 </resources>
