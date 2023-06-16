@@ -8,5 +8,18 @@
         android:id="@+id/startFragment"
         android:name="com.put.polishparliamentapp.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_clubFragment"
+            app:destination="@id/clubFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clubFragment"
+        android:name="com.put.polishparliamentapp.ClubFragment"
+        android:label="fragment_club_list"
+        tools:layout="@layout/fragment_club_list" >
+        <argument
+            android:name="term"
+            app:argType="string" />
+    </fragment>
 </navigation>

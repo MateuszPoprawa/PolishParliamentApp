@@ -1,22 +1,22 @@
 package com.put.polishparliamentapp
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
-import androidx.compose.ui.graphics.DefaultAlpha
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 
-const val DEFAULT_TERM = 9
+const val DEFAULT_TERM = "9"
 
 class StartFragment() : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var spinner: Spinner? = null
-    private var termList = arrayOf (9, 8, 7, 6, 5, 4, 3 ,2)
+    private var termList = arrayOf ("9", "8", "7")
     private var term = DEFAULT_TERM
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +30,19 @@ class StartFragment() : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
 
         val view =  inflater.inflate(R.layout.fragment_start, container, false)
-        spinner = view.findViewById(R.id.spinner)
+
         val arrayAdapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, termList)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner = view.findViewById(R.id.spinner)
+        spinner!!.onItemSelectedListener  = this
         spinner!!.adapter = arrayAdapter
+
+        view.findViewById<Button>(R.id.button).setOnClickListener {
+            val action = StartFragmentDirections.actionStartFragmentToClubFragment(term)
+            view.findNavController().navigate(action)
+        }
+
         return view
     }
 
@@ -45,7 +54,7 @@ class StartFragment() : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        term =termList[position]
+        term = termList[position]
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
