@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_startFragment_to_clubFragment"
             app:destination="@id/clubFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_committeesFragment"
+            app:destination="@id/committeesFragment" />
     </fragment>
     <fragment
         android:id="@+id/clubFragment"
@@ -50,6 +53,53 @@
             app:argType="string" />
         <argument
             android:name="club"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_memberFragment_to_memberDetailFragment"
+            app:destination="@id/memberDetailFragment" />
+        <argument
+            android:name="members"
+            app:argType="string[]"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberDetailFragment"
+        android:name="com.put.polishparliamentapp.MemberDetailFragment"
+        android:label="fragment_member_detail"
+        tools:layout="@layout/fragment_member_detail" >
+        <argument
+            android:name="term"
             app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/committeesFragment"
+        android:name="com.put.polishparliamentapp.CommitteesFragment"
+        android:label="fragment_item_committees"
+        tools:layout="@layout/fragment_item_committees" >
+        <argument
+            android:name="term"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_committeesFragment_to_committeeDetailFragment"
+            app:destination="@id/committeeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/committeeDetailFragment"
+        android:name="com.put.polishparliamentapp.CommitteeDetailFragment"
+        android:label="fragment_committee_detail"
+        tools:layout="@layout/fragment_committee_detail" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="term"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_committeeDetailFragment_to_memberFragment"
+            app:destination="@id/memberFragment" />
     </fragment>
 </navigation>

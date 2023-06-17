@@ -37,9 +37,9 @@ class ClubDetailFragment : Fragment() {
 
         view.findViewById<ImageView>(R.id.logo).load(club.image)
         view.findViewById<TextView>(R.id.name).text = club.name
-        view.findViewById<TextView>(R.id.membersCount).text = String.format(getString(R.string.members_count), club.membersCount.toString());
+        view.findViewById<TextView>(R.id.membersCount).text = String.format(getString(R.string.members_count), club.membersCount.toString())
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            val action = ClubDetailFragmentDirections.actionClubDetailFragmentToMemberFragment(term, club.id)
+            val action = ClubDetailFragmentDirections.actionClubDetailFragmentToMemberFragment(term, club.id, null)
             view.findNavController().navigate(action)
         }
         return view

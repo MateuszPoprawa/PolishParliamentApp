@@ -14,6 +14,7 @@
 
         <TextView
             android:id="@+id/textView"
+            android:layout_margin="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center"
@@ -24,14 +25,30 @@
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:minHeight="48dp"
             android:textAlignment="center" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonClubs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/start" />
+            android:layout_margin="15dp"
+            android:text="@string/clubs" />
+
+        <Button
+            android:id="@+id/buttonCommittees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/committees" />
+
+        <Button
+            android:id="@+id/buttonProcesses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/processes"
+            android:layout_margin="15dp" />
     </LinearLayout>
 
 </FrameLayout>

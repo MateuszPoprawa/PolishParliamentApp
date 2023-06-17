@@ -2,23 +2,22 @@ package com.put.polishparliamentapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.put.polishparliamentapp.MemberFragmentDirections
-import com.put.polishparliamentapp.databinding.FragmentMemberBinding
-import com.put.polishparliamentapp.model.Member
+import com.put.polishparliamentapp.CommitteesFragmentDirections
+import com.put.polishparliamentapp.databinding.FragmentCommitteesBinding
+import com.put.polishparliamentapp.model.Committee
 
-class MyMemberRecyclerViewAdapter(
-    private val values: List<Member>
-) : RecyclerView.Adapter<MyMemberRecyclerViewAdapter.ViewHolder>() {
+
+class MyCommitteesRecyclerViewAdapter(
+    private val values: MutableList<Committee>
+) : RecyclerView.Adapter<MyCommitteesRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            FragmentMemberBinding.inflate(
+            FragmentCommitteesBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -29,18 +28,17 @@ class MyMemberRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.photoView.load(item.photo)
-        holder.nameView.text = "${item.firstName} ${item.lastName}"
+        holder.nameView.text = item.name
         holder.itemView.setOnClickListener {
-            val action = MemberFragmentDirections.actionMemberFragmentToMemberDetailFragment(item.term, item.id)
+            val action = CommitteesFragmentDirections.actionCommitteesFragmentToCommitteeDetailFragment(item.id, item.term)
             it.findNavController().navigate(action)
         }
     }
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: FragmentMemberBinding) : RecyclerView.ViewHolder(binding.root) {
-        val photoView: ImageView = binding.photo
+    inner class ViewHolder(binding: FragmentCommitteesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val nameView: TextView = binding.name
 
         override fun toString(): String {

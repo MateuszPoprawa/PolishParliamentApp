@@ -38,9 +38,18 @@ class StartFragment() : Fragment(), AdapterView.OnItemSelectedListener {
         spinner!!.onItemSelectedListener  = this
         spinner!!.adapter = arrayAdapter
 
-        view.findViewById<Button>(R.id.button).setOnClickListener {
+        view.findViewById<Button>(R.id.buttonClubs).setOnClickListener {
             val action = StartFragmentDirections.actionStartFragmentToClubFragment(term)
             view.findNavController().navigate(action)
+        }
+
+        view.findViewById<Button>(R.id.buttonCommittees).setOnClickListener {
+            val action = StartFragmentDirections.actionStartFragmentToCommitteesFragment(term)
+            view.findNavController().navigate(action)
+        }
+
+        view.findViewById<Button>(R.id.buttonProcesses).setOnClickListener {
+
         }
 
         return view

@@ -2,6 +2,7 @@ package com.put.polishparliamentapp.model
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
@@ -12,6 +13,8 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
         const val DATABASE_NAME = "parliament.db"
         const val clubs_table = "clubs"
         const val members_table = "members"
+        const val committees_table= "committees"
+        const val processes_table = "proceedings"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -23,11 +26,21 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
                 " id TEXT, firstName TEXT, lastName TEXT, birthDate TEXT, club TEXT, profession TEXT, email TEXT, districtName TEXT," +
                 " photo TEXT, term TEXT, PRIMARY KEY(id, term))"
         db.execSQL(createMembersTable)
+
+        val createCommitteesTable = "CREATE TABLE IF NOT EXISTS $committees_table (" +
+                " id TEXT, name TEXT, phone TEXT, scope TEXT, term TEXT, PRIMARY KEY(id, term))"
+        db.execSQL(createCommitteesTable)
+
+        val createProcessesTable = "CREATE TABLE IF NOT EXISTS $processes_table (" +
+                " id TEXT, title TEXT, description TEXT, comments TEXT, documentDate TEXT, term TEXT, PRIMARY KEY(id, term) )"
+        db.execSQL(createProcessesTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $clubs_table")
         db.execSQL("DROP TABLE IF EXISTS $members_table")
+        db.execSQL("DROP TABLE IF EXISTS $committees_table")
+        db.execSQL("DROP TABLE IF EXISTS $processes_table")
         onCreate(db)
     }
 
@@ -80,15 +93,51 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
         return count
     }
 
+    private fun getMember(cursor: Cursor): Member {
+        return  Member(cursor.getString(0),cursor.getString(1), cursor.getString(2), cursor.getString(3),
+            cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
+            cursor.getString(8), cursor.getString(9))
+    }
+
+    fun selectMember(id: String, term: String): Member {
+        val query = "SELECT * FROM $members_table WHERE ID = '$id' AND term = '$term'"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+        val member = getMember(cursor)
+        cursor.close()
+        return member
+    }
+
     fun selectMembers(club: String, term: String): List<Member> {
         val list: MutableList<Member> = mutableListOf()
         val query = "SELECT * FROM $members_table WHERE club = '$club' AND term = '$term'"
         val db = this.writableDatabase
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            list.add(Member(cursor.getString(0),cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
-                cursor.getString(8), cursor.getString(9)))
+            list.add(getMember(cursor))
+        }
+        cursor.close()
+        return list
+    }
+
+    fun selectCommittee(id: String, term: String): Committee {
+        val query = "SELECT * FROM $committees_table WHERE ID = '$id' AND term = '$term'"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+        val committee = Committee(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4))
+        cursor.close()
+        return committee
+    }
+
+    fun selectCommittees(term: String): MutableList<Committee> {
+        val list: MutableList<Committee> = mutableListOf()
+        val query = "SELECT * FROM $committees_table WHERE term = '$term'"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            list.add(Committee(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)))
         }
         cursor.close()
         return list

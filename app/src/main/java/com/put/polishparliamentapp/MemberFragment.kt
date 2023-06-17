@@ -1,23 +1,23 @@
 package com.put.polishparliamentapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.put.polishparliamentapp.adapter.MyMemberRecyclerViewAdapter
 import com.put.polishparliamentapp.model.DbHandler
-import com.put.polishparliamentapp.placeholder.PlaceholderContent
+import com.put.polishparliamentapp.model.Member
 
 class MemberFragment : Fragment() {
 
     private var columnCount = 1
-    private lateinit var club: String
+    private var club: String? = null
     private lateinit var term: String
     private lateinit var  db: DbHandler
     private val args: MemberFragmentArgs by navArgs()
@@ -47,7 +47,15 @@ class MemberFragment : Fragment() {
                         context, DividerItemDecoration.VERTICAL
                     )
                 )
-                adapter = MyMemberRecyclerViewAdapter(db.selectMembers(club, term))
+                adapter = if (club != null) {
+                    MyMemberRecyclerViewAdapter(db.selectMembers(club!!, term))
+                } else {
+                    val list: MutableList<Member> = mutableListOf()
+                    args.members?.forEach {
+                        list.add(db.selectMember(it, term))
+                    }
+                    MyMemberRecyclerViewAdapter(list)
+                }
             }
         }
         return view

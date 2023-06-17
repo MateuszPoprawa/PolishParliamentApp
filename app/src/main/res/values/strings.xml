@@ -3,11 +3,19 @@
     <string name="white_rectangle">White rectangle</string>
     <string name="red_rectangle">Red rectangle</string>
     <string name="title_activity_animation">AnimationActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="start">Start</string>
     <string name="select_term">Select term</string>
     <string name="logo">logo</string>
     <string name="members_count">"Members count: %1$s"</string>
     <string name="show_members">Show members</string>
+    <string name="birthDate">"Birthdate: %1$s"</string>
+    <string name="club">"Club: %1$s"</string>
+    <string name="profession">"Profession: %1$s"</string>
+    <string name="email">"Email: %1$s"</string>
+    <string name="districtName">"District name: %1$s"</string>
+    <string name="photo">photo</string>
+    <string name="clubs">Clubs</string>
+    <string name="committees">Committees</string>
+    <string name="processes">Processes</string>
+    <string name="phone">"Phone: %1$s"</string>
 </resources>
