@@ -4,8 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.put.polishparliamentapp.ClubFragment
+import com.put.polishparliamentapp.ClubFragmentDirections
 import com.put.polishparliamentapp.databinding.FragmentClubBinding
 import com.put.polishparliamentapp.model.Club
 
@@ -32,7 +36,8 @@ class ClubRecyclerViewAdapter(
         holder.logoView.load(item.image)
         holder.membersCount.text = item.membersCount.toString()
         holder.itemView.setOnClickListener{
-
+            val action = ClubFragmentDirections.actionClubFragmentToClubDetailFragment(item.id, item.term)
+            it.findNavController().navigate(action)
         }
     }
 

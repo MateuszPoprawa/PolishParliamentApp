@@ -8,20 +8,26 @@ import android.database.sqlite.SQLiteOpenHelper
 class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.CursorFactory?, version: Int?) : SQLiteOpenHelper(context,
     DATABASE_NAME, factory, DATABASE_VERSION) {
     companion object {
-        const val DATABASE_VERSION = 5
+        const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "parliament.db"
         const val clubs_table = "clubs"
-
+        const val members_table = "members"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
         val createClubsTable = "CREATE TABLE IF NOT EXISTS $clubs_table (" +
                 " id TEXT, name TEXT,  membersCount INT, image TEXT, term TEXT, PRIMARY KEY(id, term))"
         db.execSQL(createClubsTable)
+
+        val createMembersTable = "CREATE TABLE IF NOT EXISTS $members_table (" +
+                " id TEXT, firstName TEXT, lastName TEXT, birthDate TEXT, club TEXT, profession TEXT, email TEXT, districtName TEXT," +
+                " photo TEXT, term TEXT, PRIMARY KEY(id, term))"
+        db.execSQL(createMembersTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $clubs_table")
+        db.execSQL("DROP TABLE IF EXISTS $members_table")
         onCreate(db)
     }
 
@@ -48,10 +54,43 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
         val db = this.writableDatabase
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            list.add(Club(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3)))
+            list.add(Club(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4)))
         }
         cursor.close()
         return list
     }
 
+    fun selectClub(id: String, term:String): Club {
+        val query = "SELECT * FROM $clubs_table WHERE id = '$id' AND term = '$term'"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+        val club = Club(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4))
+        cursor.close()
+        return club
+    }
+
+    fun membersTotalCount(): Int {
+        val query = "SELECT COUNT(*) FROM $members_table"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+        val count = cursor.getInt(0)
+        cursor.close()
+        return count
+    }
+
+    fun selectMembers(club: String, term: String): List<Member> {
+        val list: MutableList<Member> = mutableListOf()
+        val query = "SELECT * FROM $members_table WHERE club = '$club' AND term = '$term'"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            list.add(Member(cursor.getString(0),cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
+                cursor.getString(8), cursor.getString(9)))
+        }
+        cursor.close()
+        return list
+    }
 }

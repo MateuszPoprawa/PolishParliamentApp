@@ -21,5 +21,35 @@
         <argument
             android:name="term"
             app:argType="string" />
+        <action
+            android:id="@+id/action_clubFragment_to_clubDetailFragment"
+            app:destination="@id/clubDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clubDetailFragment"
+        android:name="com.put.polishparliamentapp.ClubDetailFragment"
+        android:label="fragment_club_detail"
+        tools:layout="@layout/fragment_club_detail" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="term"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_clubDetailFragment_to_memberFragment"
+            app:destination="@id/memberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberFragment"
+        android:name="com.put.polishparliamentapp.MemberFragment"
+        android:label="fragment_member_list"
+        tools:layout="@layout/fragment_member_list" >
+        <argument
+            android:name="term"
+            app:argType="string" />
+        <argument
+            android:name="club"
+            app:argType="string" />
     </fragment>
 </navigation>
