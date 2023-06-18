@@ -83,8 +83,8 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
         return club
     }
 
-    fun membersTotalCount(): Int {
-        val query = "SELECT COUNT(*) FROM $members_table"
+    fun membersTotalCount(term: String): Int {
+        val query = "SELECT COUNT(*) FROM $members_table WHERE term = '$term'"
         val db = this.writableDatabase
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()

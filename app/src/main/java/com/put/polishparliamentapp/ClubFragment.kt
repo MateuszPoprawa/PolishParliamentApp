@@ -62,7 +62,7 @@ class ClubFragment : Fragment() {
             }
         }
 
-        if (db.membersTotalCount() < MEMBERS_COUNT) {
+        if (db.membersTotalCount(term) < MEMBERS_COUNT) {
             val mpUrl = "https://api.sejm.gov.pl/sejm/term$term/MP"
             api.makeJsonArrayRequest(mpUrl) { response ->
                 for (i in 0 until response.length()) {
@@ -72,9 +72,9 @@ class ClubFragment : Fragment() {
                     val firstName = member.getString("firstName")
                     val lastName = member.getString("lastName")
                     val birthDate = member.getString("birthDate")
-                    val club  = member.getString("club")
+                    val club  = member.optString("club") ?: "-"
                     val profession = member.getString("profession")
-                    val email = member.getString("email")
+                    val email = member.optString("email") ?: "-"
                     val districtName = member.getString("districtName")
                     val photo = "$mpUrl/$id/photo-mini"
                     val term = term
