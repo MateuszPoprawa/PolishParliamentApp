@@ -1,5 +1,6 @@
 package com.put.polishparliamentapp
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,9 @@ class MemberFragment : Fragment() {
 
         db = DbHandler(requireContext(), DbHandler.DATABASE_NAME, null, 1)
 
+        val orientation = this.resources.configuration.orientation
+        columnCount = if (orientation == Configuration.ORIENTATION_PORTRAIT) 1 else 2
+
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
@@ -63,7 +67,7 @@ class MemberFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        db.close()
+        if (::db.isInitialized) db.close()
     }
 
     companion object {

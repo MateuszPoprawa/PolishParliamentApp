@@ -83,7 +83,7 @@ class CommitteesFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        db.close()
+        if (::db.isInitialized) db.close()
     }
 
     companion object {

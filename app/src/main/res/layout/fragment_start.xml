@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".StartFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:translationY="-100dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_margin="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center"
+            android:layout_margin="15dp"
             android:text="@string/select_term"
             android:textSize="24sp" />
 
@@ -47,8 +47,8 @@
             android:id="@+id/buttonProcesses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/processes"
-            android:layout_margin="15dp" />
+            android:layout_margin="15dp"
+            android:text="@string/processes" />
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

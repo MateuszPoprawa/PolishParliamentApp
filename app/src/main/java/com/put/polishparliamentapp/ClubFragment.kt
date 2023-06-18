@@ -1,6 +1,7 @@
 package com.put.polishparliamentapp
 
 import android.content.ContentValues
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +34,10 @@ class ClubFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
         val view = inflater.inflate(R.layout.fragment_club_list, container, false)
+        val orientation = this.resources.configuration.orientation
+        columnCount = if (orientation == Configuration.ORIENTATION_PORTRAIT) 1 else 2
 
         db = DbHandler(requireContext(), DbHandler.DATABASE_NAME, null, 1)
         val api = ApiHandler(requireContext())
@@ -115,7 +119,7 @@ class ClubFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        db.close()
+        if (::db.isInitialized) db.close()
     }
 
     companion object {
