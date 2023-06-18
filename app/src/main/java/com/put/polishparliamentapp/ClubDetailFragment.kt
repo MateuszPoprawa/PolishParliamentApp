@@ -45,6 +45,11 @@ class ClubDetailFragment : Fragment() {
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        db.close()
+    }
+
     companion object {
 
         @JvmStatic

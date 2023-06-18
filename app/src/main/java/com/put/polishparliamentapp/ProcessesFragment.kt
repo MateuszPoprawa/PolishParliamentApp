@@ -11,18 +11,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.put.polishparliamentapp.adapter.MyCommitteesRecyclerViewAdapter
-import com.put.polishparliamentapp.model.Committee
+import com.put.polishparliamentapp.adapter.MyProcessesRecyclerViewAdapter
 import com.put.polishparliamentapp.model.DbHandler
+import com.put.polishparliamentapp.model.Processes
 
-
-class CommitteesFragment : Fragment() {
+class ProcessesFragment : Fragment() {
 
     private var columnCount = 1
-    private val args: CommitteesFragmentArgs by navArgs()
+    private val args: ProcessesFragmentArgs by navArgs()
     private lateinit var term: String
     private lateinit var  db: DbHandler
-    private lateinit var list: MutableList<Committee>
+    private lateinit var list: MutableList<Processes>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,29 +32,30 @@ class CommitteesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_committees, container, false)
+        val view = inflater.inflate(R.layout.fragment_processes_list, container, false)
 
         db = DbHandler(requireContext(), DbHandler.DATABASE_NAME, null, 1)
 
         val api = ApiHandler(requireContext())
-        val url = "https://api.sejm.gov.pl/sejm/term$term/committees"
+        val url = "https://api.sejm.gov.pl/sejm/term$term/processes"
         api.makeJsonArrayRequest(url) { response ->
-            for (i in 0 until response.length()) {
+            for (i in response.length() - 1 downTo response.length() - 100) {
                 val values = ContentValues()
-                val committee = response.getJSONObject(i)
-                val id = committee.getString("code")
-                val name = committee.getString("name")
-                val phone = committee.getString("phone")
-                val scope = committee.optString("scope") ?: ""
+                val processes = response.getJSONObject(i)
+                val id = processes.getString("number")
+                val title = processes.getString("title")
+                val description = processes.optString("description") ?: ""
+                val documentDate = processes.getString("documentDate")
                 with(values) {
                     put("id", id)
-                    put("name", name)
-                    put("phone", phone)
-                    put("scope", scope)
+                    put("title", title)
+                    put("description", description)
+                    put("documentDate", documentDate)
                     put("term", term)
                 }
-                if(db.insert(DbHandler.committees_table, values)) {
-                    list.add(Committee(id, name, phone, scope, term))
+
+                if (db.insert(DbHandler.processes_table, values)) {
+                    list.add(Processes(id, title, description, documentDate, term))
                     with(view as RecyclerView) {
                         adapter?.notifyItemInserted(list.lastIndex)
                     }
@@ -74,8 +74,8 @@ class CommitteesFragment : Fragment() {
                         context, DividerItemDecoration.VERTICAL
                     )
                 )
-                list = db.selectCommittees(term)
-                adapter = MyCommitteesRecyclerViewAdapter(list)
+                list = db.selectProcesses(term)
+                adapter = MyProcessesRecyclerViewAdapter(list)
             }
         }
         return view
@@ -89,6 +89,6 @@ class CommitteesFragment : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance() = CommitteesFragment()
+        fun newInstance() = ProcessesFragment()
     }
 }

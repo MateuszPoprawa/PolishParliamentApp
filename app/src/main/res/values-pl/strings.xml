@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Polski Parlament</string>
+    <string name="white_rectangle">Biały prosotkąt</string>
+    <string name="red_rectangle">Czerwony prostokąt</string>
+    <string name="title_activity_animation">Animacja</string>
+    <string name="start">Start</string>
+    <string name="select_term">Wybierz kadencje sejmu</string>
+    <string name="logo">logo</string>
+    <string name="members_count">Liczba posłów %1$s</string>
+    <string name="show_members">Pokaż posłów</string>
+    <string name="birthDate">Data urodzenia: %1$s</string>
+    <string name="club">Klub parlamentarny %1$s</string>
+    <string name="profession">Zawód: %1$s</string>
+    <string name="email">Email: %1$s</string>
+    <string name="districtName">Okręg wyborczy: %1$s</string>
+    <string name="photo">zdjęcie</string>
+    <string name="clubs">Kluby</string>
+    <string name="committees">Komisje</string>
+    <string name="processes">Proces legislacyjny</string>
+    <string name="phone">Telefon: %1$s</string>
+</resources>

@@ -49,7 +49,8 @@ class StartFragment() : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         view.findViewById<Button>(R.id.buttonProcesses).setOnClickListener {
-
+            val action = StartFragmentDirections.actionStartFragmentToProcessesFragment(term)
+            view.findNavController().navigate(action)
         }
 
         return view

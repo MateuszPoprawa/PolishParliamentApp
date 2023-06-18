@@ -14,7 +14,7 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
         const val clubs_table = "clubs"
         const val members_table = "members"
         const val committees_table= "committees"
-        const val processes_table = "proceedings"
+        const val processes_table = "processes"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -32,7 +32,7 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
         db.execSQL(createCommitteesTable)
 
         val createProcessesTable = "CREATE TABLE IF NOT EXISTS $processes_table (" +
-                " id TEXT, title TEXT, description TEXT, comments TEXT, documentDate TEXT, term TEXT, PRIMARY KEY(id, term) )"
+                " id TEXT, title TEXT, description TEXT, documentDate TEXT, term TEXT, PRIMARY KEY(id, term) )"
         db.execSQL(createProcessesTable)
     }
 
@@ -138,6 +138,18 @@ class DbHandler (context: Context, name: String?, factory: SQLiteDatabase.Cursor
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             list.add(Committee(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)))
+        }
+        cursor.close()
+        return list
+    }
+
+    fun selectProcesses(term: String): MutableList<Processes> {
+        val list: MutableList<Processes> = mutableListOf()
+        val query = "SELECT * FROM $processes_table WHERE term = '$term'"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            list.add(Processes(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)))
         }
         cursor.close()
         return list

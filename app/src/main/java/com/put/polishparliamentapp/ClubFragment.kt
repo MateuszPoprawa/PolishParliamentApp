@@ -32,10 +32,10 @@ class ClubFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_club_list, container, false)
 
         db = DbHandler(requireContext(), DbHandler.DATABASE_NAME, null, 1)
-
         val api = ApiHandler(requireContext())
         val clubsUrl = "https://api.sejm.gov.pl/sejm/term$term/clubs"
         api.makeJsonArrayRequest(clubsUrl) { response ->

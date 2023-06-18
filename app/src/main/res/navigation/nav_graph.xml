@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_startFragment_to_committeesFragment"
             app:destination="@id/committeesFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_processesFragment"
+            app:destination="@id/processesFragment" />
     </fragment>
     <fragment
         android:id="@+id/clubFragment"
@@ -101,5 +104,14 @@
         <action
             android:id="@+id/action_committeeDetailFragment_to_memberFragment"
             app:destination="@id/memberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/processesFragment"
+        android:name="com.put.polishparliamentapp.ProcessesFragment"
+        android:label="fragment_processes_list"
+        tools:layout="@layout/fragment_processes_list" >
+        <argument
+            android:name="term"
+            app:argType="string" />
     </fragment>
 </navigation>
