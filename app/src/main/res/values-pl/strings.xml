@@ -19,4 +19,5 @@
     <string name="committees">Komisje</string>
     <string name="processes">Proces legislacyjny</string>
     <string name="phone">Telefon: %1$s</string>
+    <string name="transmissions_for_today">Dzisiejsze transmisje</string>
 </resources>

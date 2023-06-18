@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 const val SHOW_ANIMATION = "showAnimation"
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-    private var showAnimation = false
+    private var showAnimation = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

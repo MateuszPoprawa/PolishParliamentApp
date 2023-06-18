@@ -53,6 +53,11 @@ class StartFragment() : Fragment(), AdapterView.OnItemSelectedListener {
             view.findNavController().navigate(action)
         }
 
+//        view.findViewById<Button>(R.id.buttonVideos).setOnClickListener {
+//            val action = StartFragmentDirections.actionStartFragmentToVideoFragment()
+//            view.findNavController().navigate(action)
+//        }
+
         return view
     }
 
@@ -60,7 +65,6 @@ class StartFragment() : Fragment(), AdapterView.OnItemSelectedListener {
 
         @JvmStatic
         fun newInstance() = StartFragment()
-
     }
 
     override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {

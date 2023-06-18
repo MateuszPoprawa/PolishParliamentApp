@@ -18,4 +18,5 @@
     <string name="committees">Committees</string>
     <string name="processes">Processes</string>
     <string name="phone">"Phone: %1$s"</string>
+    <string name="transmissions_for_today">Transmissions for today</string>
 </resources>

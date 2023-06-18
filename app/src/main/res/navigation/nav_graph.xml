@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_startFragment_to_processesFragment"
             app:destination="@id/processesFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_videoFragment"
+            app:destination="@id/videoFragment" />
     </fragment>
     <fragment
         android:id="@+id/clubFragment"
@@ -112,6 +115,30 @@
         tools:layout="@layout/fragment_processes_list" >
         <argument
             android:name="term"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.put.polishparliamentapp.VideoFragment"
+        android:label="fragment_video_list"
+        tools:layout="@layout/fragment_video_list" >
+        <action
+            android:id="@+id/action_videoFragment_to_videoPageFragment"
+            app:destination="@id/videoPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoPageFragment"
+        android:name="com.put.polishparliamentapp.VideoPageFragment"
+        android:label="fragment_video_page"
+        tools:layout="@layout/fragment_video_page" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="link"
+            app:argType="string" />
+        <argument
+            android:name="room"
             app:argType="string" />
     </fragment>
 </navigation>
